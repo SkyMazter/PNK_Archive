@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "../Components/NavBar";
 
 const App = () => {
   return (
-    <div>
-      <p>Hello world</p>
-    </div>
+    <>
+      <NavBar logged_in={false} />
+    </>
   );
 };
 
