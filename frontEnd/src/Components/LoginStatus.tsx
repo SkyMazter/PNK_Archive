@@ -1,4 +1,5 @@
 import { Button, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 interface Props {
   isLoggedIn: boolean;
@@ -6,7 +7,11 @@ interface Props {
 
 const LoginStatus = ({ isLoggedIn }: Props) => {
   if (isLoggedIn == false)
-    return <Button variant={"outline-secondary"}>Log In</Button>;
+    return (
+      <Link to="/Login">
+        <Button variant={"outline-secondary"}>Log In</Button>
+      </Link>
+    );
   return (
     <Navbar.Text>
       Signed in as: <a href="#login">Oscar Comunidad</a>

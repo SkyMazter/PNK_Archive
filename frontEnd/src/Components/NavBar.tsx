@@ -10,7 +10,12 @@ const NavBar = ({ logged_in }: Props) => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary bg-warning-subtle">
       <Container>
-        <Navbar.Brand href="#home">EPNK Archive</Navbar.Brand>
+        <Link
+          to={"/"}
+          className="my-auto link-secondary link-offset-2 link-underline-opacity-0 "
+        >
+          <Navbar.Brand>EPNK Archive</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-between">
           <Nav className="me-auto">
