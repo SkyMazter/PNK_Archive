@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./Pages/App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login";
+import Submit from "./Pages/Submit";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login />,
+  },
+  {
+    path: "/Submit",
+    element: <Submit />,
   },
 ]);
 

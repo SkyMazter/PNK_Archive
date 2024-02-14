@@ -27,6 +27,14 @@ const NavBar = ({ logged_in }: Props) => {
                 Home
               </Button>
             </Link>
+            <Link to={"/Submit"} className="my-auto">
+              <Button
+                variant={"link"}
+                className="my-auto link-success link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+              >
+                Submit
+              </Button>
+            </Link>
             <Link to={"http://epnk"} className="my-auto">
               <Button
                 variant={"link"}
