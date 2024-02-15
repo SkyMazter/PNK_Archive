@@ -25,7 +25,14 @@ const Submit = () => {
               <InputGroup.Text>@</InputGroup.Text>
               <Form.Control
                 placeholder="Username"
-                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              ></Form.Control>
+            </InputGroup>
+
+            <InputGroup className="my-3">
+              <InputGroup.Text>Post Title</InputGroup.Text>
+              <Form.Control
+                placeholder="My Document"
                 aria-describedby="basic-addon2"
               ></Form.Control>
             </InputGroup>

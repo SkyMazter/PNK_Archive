@@ -8,7 +8,7 @@ interface Props {
 
 const NavBar = ({ logged_in }: Props) => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary bg-warning-subtle">
+    <Navbar expand="lg" className="bg-body-tertiary bg-info-subtle">
       <Container>
         <Link
           to={"/"}
