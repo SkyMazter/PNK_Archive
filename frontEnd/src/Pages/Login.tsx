@@ -1,35 +1,52 @@
-import { Button, Container, Form, InputGroup } from "react-bootstrap";
-import NavBar from "../Components/NavBar";
+import { Button, Container, Form, InputGroup, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <>
-      <NavBar logged_in={false} />
       <Container fluid={"md"}>
-        <h1>Login</h1>
-        <Form>
-          <InputGroup className="my-3">
-            <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-            <Form.Control
-              type="Username"
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
-          </InputGroup>
-          <InputGroup className="my-3">
-            <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
-            <Form.Control
-              type="password"
-              placeholder="Input Here"
-              aria-label="Password"
-              aria-describedby="basic-addon1"
-            />
-          </InputGroup>
-          <Button variant="success" type="submit">
-            Submit
-          </Button>
-        </Form>
+        <Row className="h-auto py-2 justify-content-around">
+          <Col xs={9} lg={4}>
+            <h1>Login</h1>
+            <Form>
+              <InputGroup className="my-3">
+                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                <Form.Control
+                  type="Username"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </InputGroup>
+              <InputGroup className="my-3">
+                <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
+                <Form.Control
+                  type="password"
+                  placeholder="Input Here"
+                  aria-label="Password"
+                  aria-describedby="basic-addon1"
+                />
+              </InputGroup>
+            </Form>
+          </Col>
+        </Row>
+        <Row className="h-auto py-2 justify-content-center">
+          <Col xs={5} lg={3}>
+            <div className=" d-flex justify-content-center">
+              <Button variant="success" type="submit">
+                Submit
+              </Button>
+            </div>
+          </Col>
+
+          <Col xs={5} lg={3}>
+            <div className=" d-flex justify-content-center">
+              <Link to="/">
+                <Button variant={"outline-danger"}>Cancel</Button>
+              </Link>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </>
   );

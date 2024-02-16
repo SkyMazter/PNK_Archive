@@ -3,23 +3,15 @@ import { Link } from "react-router-dom";
 
 const Submit = () => {
   return (
-    <Container className="min-vh-100 " fluid>
-      <Row className="h-auto py-2">
-        <Col>
-          <Link to="/">
-            <Button variant={"outline-danger"}>Cancel</Button>
-          </Link>
-        </Col>
-      </Row>
-
+    <Container className="min-vh-100 my-5" fluid="sm">
       <Row className="justify-content-center">
-        <Col sm="7" xl="4">
+        <Col>
           <h2>Submit New Post</h2>
         </Col>
       </Row>
 
       <Row className="justify-content-center">
-        <Col sm={7} xl="4">
+        <Col>
           <Form>
             <InputGroup className="my-3">
               <InputGroup.Text>@</InputGroup.Text>
@@ -65,10 +57,20 @@ const Submit = () => {
                 rows={5}
               />
             </Form.Group>
-            <Button variant="success" type="submit">
-              Submit
-            </Button>
           </Form>
+        </Col>
+      </Row>
+      <Row className="h-auto py-2 justify-content-evenly">
+        <Col xs={3} md={1}>
+          <Button variant="success" type="submit">
+            Submit
+          </Button>
+        </Col>
+
+        <Col xs={3} md={1}>
+          <Link to="/">
+            <Button variant={"outline-danger"}>Cancel</Button>
+          </Link>
         </Col>
       </Row>
     </Container>
