@@ -1,7 +1,7 @@
 import { Button, Container, Form, InputGroup, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   return (
     <Container
       fluid={"md"}
@@ -9,7 +9,7 @@ const Login = () => {
     >
       <Row className="h-auto py-2 justify-content-around">
         <Col xs={10} lg={4}>
-          <h1>Login</h1>
+          <h1>Sign Up</h1>
           <Form>
             <InputGroup className="my-3">
               <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
@@ -21,16 +21,25 @@ const Login = () => {
               />
             </InputGroup>
             <InputGroup className="my-3">
-              <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">={">"}</InputGroup.Text>
               <Form.Control
                 type="password"
-                placeholder="Input Here"
+                placeholder="Password"
                 aria-label="Password"
                 aria-describedby="basic-addon1"
               />
             </InputGroup>
-            <Link to="/SignUp">
-              <Button variant="link">Don't have an account?</Button>
+            <InputGroup className="my-3">
+              <InputGroup.Text id="basic-addon1">={">"}</InputGroup.Text>
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                aria-label="Password"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <Link to="/Login">
+              <Button variant="link">Already have an account?</Button>
             </Link>
           </Form>
         </Col>
@@ -40,7 +49,7 @@ const Login = () => {
         <Col xs={5} lg={2}>
           <div className=" d-flex justify-content-start">
             <Button variant="success" type="submit">
-              Login
+              Submit
             </Button>
           </div>
         </Col>
@@ -57,4 +66,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

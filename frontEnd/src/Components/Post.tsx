@@ -7,16 +7,12 @@ interface Props {
   file: string | undefined;
 }
 
-const Post = ({ username, file, description, category, title }: Props) => {
+const Post = ({ username, description, category, title }: Props) => {
   return (
     <div className="container-fluid bg-success-subtle my-3 p-3 shadow-sm rounded-4">
       <div className="row">
         <div className="col-5 col-md-3">
           <div className=" my-auto ">
-            {/* <img
-              className="w-25 h-25 rounded-circle"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            /> */}
             <h5>@{username}</h5>
           </div>
         </div>
@@ -43,7 +39,12 @@ const Post = ({ username, file, description, category, title }: Props) => {
                 {category}
               </Badge>
             </div>
-            <Button>Download</Button>
+            <div className=" d-flex justify-content-evenly">
+              <Button className="m-1">Download</Button>
+              <Button variant="outline-info" className="m-1">
+                Preview
+              </Button>
+            </div>
           </div>
         </div>
       </div>
