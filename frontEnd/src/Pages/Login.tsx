@@ -27,9 +27,13 @@ const Login = () => {
                   aria-describedby="basic-addon1"
                 />
               </InputGroup>
+              <Link to="/">
+                <Button variant="link">Already have an account?</Button>
+              </Link>
             </Form>
           </Col>
         </Row>
+
         <Row className="h-auto py-2 justify-content-center">
           <Col xs={5} lg={3}>
             <div className=" d-flex justify-content-center">
