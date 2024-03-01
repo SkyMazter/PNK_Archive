@@ -18,6 +18,7 @@ const SignUp = () => {
                 placeholder="Username"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                autoComplete="off"
               />
             </InputGroup>
             <InputGroup className="my-3">

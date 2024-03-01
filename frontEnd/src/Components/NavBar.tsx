@@ -46,7 +46,7 @@ const NavBar = ({ logged_in }: Props) => {
             <NavDropdown title="Useful Resources" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">How to Use</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">EPNK</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item href="/Exp">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 Community Rules
