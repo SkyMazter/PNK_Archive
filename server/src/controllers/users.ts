@@ -84,15 +84,15 @@ const userLogin = async (res: Response, req: Request) => {
     return res.json({ error: "Login Failed due to unkown error" });
   }
 
-  //   try {
-  //     const user: any = await connection.query(
-  //       query,
-  //       [usrn, pswd],
-  //       (error, result, fields) => {
-  //         res.status(200);
-  //         return res.json({ success: "Found User", usrn: usrn });
-  //       }
-  //     );
+    // try {
+    //   const user: any = await connection.query(
+    //     query,
+    //     [usrn, pswd],
+    //     (error, result, fields) => {
+    //       res.status(200);
+    //       return res.json({ success: "Found User", usrn: usrn });
+    //     }
+    //   );
 
   //     if (user) {
   //       const correctPswd = await (pswd == user.password);
