@@ -1,18 +1,16 @@
 // src/server.ts
 import express, { Request, Response } from "express";
 import userRouter from "./routes/users";
+import bodyParser from "body-parser";
 import cors from "cors";
 import sequelize from "./connection";
 
-const app = express();
+const app: express.Application = express();
 const port = 3001;
 
-//Middleware
 app.use(express.json());
-//For frontend use
 app.use(cors());
-
-//routes
+app.use(bodyParser.json());
 app.use("/users", userRouter);
 
 sequelize

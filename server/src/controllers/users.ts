@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import User from "../models/users";
 import bcrypt from "bcrypt";
-// import connection from "../connection";
+
 
 const getAllUsers = async (req: Request, res: Response) => {
   //   try {
@@ -24,24 +24,6 @@ const getAllUsers = async (req: Request, res: Response) => {
 };
 
 const newUser = async (req: Request, res: Response) => {
-  const { usrn, pswd }: { usrn: string; pswd: string } = req.body;
-  const query = "INSERT INTO users (username, password) VALUES (?, ?)";
-
-  //   try {
-  //     await connection.query(query, [usrn, pswd], (error, result, fields) => {
-  //       console.log("hi");
-  //       res.status(200).json({ message: result });
-  //       return;
-  //     });
-  //   } catch (error: any) {
-  //     res.status(500);
-  //     return res.json({
-  //       error: "Failed to get users with unexpected error: ${error}",
-  //     });
-  //   }
-};
-
-const userLogin = async (res: Response, req: Request) => {
   const { username, password }: { username: string; password: string } =
     req.body;
   var handleEmpty: string = "";
@@ -52,9 +34,51 @@ const userLogin = async (res: Response, req: Request) => {
   if (handleEmpty) {
     res.status(400);
     return res.json({ error: `Failed to login missing field: ${handleEmpty}` });
+  };
+
+  if (username == password) {
+    res.status(400);
+    return res.json({ error: `Password and Username canot be the same` });
+  };
+
+  const user: any = await User.findOne({
+    where: {
+      username: username,
+    },
+  });
+
+  if (user) {
+    res.status(400);
+    return res.json({ error: `Username is already taken` });
   }
 
-  const securedPwrd: string = await bcrypt.hash(password, 10);
+  try {
+    const securedPwrd: string = await bcrypt.hash(password, 10);
+
+     await User.create({
+      username: username,
+      password: securedPwrd
+    });
+
+    res.status(200);
+    return res.json({success: "New user created!"})
+  } catch (error) {
+    console.error(error);
+  }
+
+};
+
+const userLogin = async (req: Request, res: Response) => {
+ const {username, password}: {username: string, password: string} = req.body; 
+  var handleEmpty: string = "";
+  handleEmpty = !username ? "username" : "" || !password ? "password" : ""; //find missing parm
+
+
+  if (handleEmpty) {
+    res.status(400);
+    return res.json({ error: `Failed to login missing field: ${handleEmpty}` });
+  }
+
 
   try {
     const user: any = await User.findOne({
@@ -72,47 +96,20 @@ const userLogin = async (res: Response, req: Request) => {
       res.status(200);
       return res.json({
         success: "login successful",
-        username: username,
+        username: user.username,
         user_id: user.id,
       });
     } else {
       res.status(400);
       return res.json({ error: "Invalid username" });
     }
+    console.log("user found");
+
   } catch (error: any) {
     res.status(500);
     return res.json({ error: "Login Failed due to unkown error" });
   }
-
-    // try {
-    //   const user: any = await connection.query(
-    //     query,
-    //     [usrn, pswd],
-    //     (error, result, fields) => {
-    //       res.status(200);
-    //       return res.json({ success: "Found User", usrn: usrn });
-    //     }
-    //   );
-
-  //     if (user) {
-  //       const correctPswd = await (pswd == user.password);
-  //       if (!correctPswd) {
-  //         res.status(400);
-  //         return res.json({ error: "Failed to login invaild password" });
-  //       }
-  //       console.log("found user pt 2");
-  //       res.status(200);
-  //       return res.json({ success: "Login Successful" });
-  //     } else {
-  //       res.status(400);
-  //       return res.json({ error: "Failed to login invaild credentials" });
-  //     }
-  //   } catch (error) {
-  //     res.status(500);
-  //     return res.json({
-  //       error: "Failed to get users with unexpected error: ${error}",
-  //     });
-  //   }
+ 
 };
 
 export { getAllUsers, newUser, userLogin };
