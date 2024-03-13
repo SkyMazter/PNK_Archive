@@ -2,44 +2,25 @@ import { Request, Response } from "express";
 import User from "../models/users";
 import bcrypt from "bcrypt";
 
-
 const getAllUsers = async (req: Request, res: Response) => {
-  //   try {
-  //     await connection.query("SELECT * FROM users", (error, results, fields) => {
-  //       if (error) {
-  //         res.status(500).send("Internal Server Error");
-  //         throw error;
-  //         return;
-  //       }
-  //       res.status(200);
-  //       console.log(results);
-  //       return res.json(results);
-  //     });
-  //   } catch (error: any) {
-  //     res.status(500);
-  //     return res.json({
-  //       error: "Failed to get users with unexpected error: ${error}",
-  //     });
-  //   }
+
 };
 
-const newUser = async (req: Request, res: Response) => {
+const newUser = async (req: Request, res: Response): Promise<Response> => {
   const { username, password }: { username: string; password: string } =
     req.body;
   var handleEmpty: string = "";
   handleEmpty = !username ? "username" : "" || !password ? "password" : ""; //find missing parm
 
-  //   const query = "SELECT * FROM users WHERE username= ?";
-
   if (handleEmpty) {
     res.status(400);
-    return res.json({ error: `Failed to login missing field: ${handleEmpty}` });
-  };
+    return res.json({ error: `Failed to register due to missing field: ${handleEmpty}` });
+  }
 
   if (username == password) {
     res.status(400);
-    return res.json({ error: `Password and Username canot be the same` });
-  };
+    return res.json({ error: `Password and Username cannot be the same` });
+  }
 
   const user: any = await User.findOne({
     where: {
@@ -55,30 +36,29 @@ const newUser = async (req: Request, res: Response) => {
   try {
     const securedPwrd: string = await bcrypt.hash(password, 10);
 
-     await User.create({
+    await User.create({
       username: username,
-      password: securedPwrd
+      password: securedPwrd,
     });
 
     res.status(200);
-    return res.json({success: "New user created!"})
+    return res.json({ success: "New user created!" });
   } catch (error) {
-    console.error(error);
+    res.status(400);
+    return res.json({ error: `failed to register due to unknown error` });
   }
-
 };
 
-const userLogin = async (req: Request, res: Response) => {
- const {username, password}: {username: string, password: string} = req.body; 
+const userLogin = async (req: Request, res: Response): Promise<Response> => {
+  const { username, password }: { username: string; password: string } =
+    req.body;
   var handleEmpty: string = "";
   handleEmpty = !username ? "username" : "" || !password ? "password" : ""; //find missing parm
 
-
   if (handleEmpty) {
     res.status(400);
-    return res.json({ error: `Failed to login missing field: ${handleEmpty}` });
+    return res.json({ error: `Failed to login due to missing field: ${handleEmpty}` });
   }
-
 
   try {
     const user: any = await User.findOne({
@@ -95,7 +75,7 @@ const userLogin = async (req: Request, res: Response) => {
       }
       res.status(200);
       return res.json({
-        success: "login successful",
+        success: "Login successful",
         username: user.username,
         user_id: user.id,
       });
@@ -103,13 +83,10 @@ const userLogin = async (req: Request, res: Response) => {
       res.status(400);
       return res.json({ error: "Invalid username" });
     }
-    console.log("user found");
-
   } catch (error: any) {
     res.status(500);
     return res.json({ error: "Login Failed due to unkown error" });
   }
- 
 };
 
 export { getAllUsers, newUser, userLogin };

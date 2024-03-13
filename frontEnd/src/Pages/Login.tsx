@@ -1,7 +1,65 @@
 import { Button, Container, Form, InputGroup, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import PopUp from "../Components/PopUp";
+
+interface loginData {
+  username: string;
+  password: string;
+}
 
 const Login = () => {
+  const [data, setData] = useState<loginData>({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>();
+
+  //click handler
+  const handleLogin = () => {
+    setError(false)
+    callLogin();
+  };
+
+  //input field handler
+  const handleInputField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setData((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const callLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/users/login", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const res = await response.json();
+      if (response.ok) {
+        console.log(res);
+      } else {
+        setError(true);
+        setErrorText(res.error);
+        console.log({
+          error: res.error,
+        });
+      }
+    } catch (error) {
+      console.log({
+        error: error,
+      });
+    }
+  };
+
   return (
     <Container
       fluid={"md"}
@@ -10,6 +68,7 @@ const Login = () => {
       <Row className="h-auto py-2 justify-content-around">
         <Col xs={10} lg={4}>
           <h1>Login</h1>
+          <PopUp isActive={error} text={errorText|| "Unknown issue, Please try again"}></PopUp>
           <Form>
             <InputGroup className="my-3">
               <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
@@ -18,6 +77,9 @@ const Login = () => {
                 placeholder="Username"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                name="username"
+                value={data.username}
+                onChange={handleInputField}
               />
             </InputGroup>
             <InputGroup className="my-3">
@@ -27,6 +89,9 @@ const Login = () => {
                 placeholder="Input Here"
                 aria-label="Password"
                 aria-describedby="basic-addon1"
+                name="password"
+                value={data.password}
+                onChange={handleInputField}
               />
             </InputGroup>
             <Link to="/SignUp">
@@ -39,7 +104,7 @@ const Login = () => {
       <Row className="h-auto py-2 justify-content-center">
         <Col xs={5} lg={2}>
           <div className=" d-flex justify-content-start">
-            <Button variant="success" type="submit">
+            <Button variant="success" type="submit" onClick={handleLogin}>
               Login
             </Button>
           </div>
