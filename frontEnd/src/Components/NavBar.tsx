@@ -1,12 +1,13 @@
 import { Button, Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoginStatus from "./LoginStatus";
+import { useAppSelector } from "../hooks/hooks";
 
-interface Props {
-  logged_in: boolean;
-}
 
-const NavBar = ({ logged_in }: Props) => {
+
+
+const NavBar = () => {
+  const logged_in: boolean = useAppSelector((state) => state.login.isActive)
   return (
     <Navbar expand="lg" className="bg-body-tertiary bg-info-subtle">
       <Container>

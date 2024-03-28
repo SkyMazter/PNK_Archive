@@ -1,7 +1,9 @@
 import { Button, Container, Form, InputGroup, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PopUp from "../Components/PopUp";
+import { useDispatch } from "react-redux";
+import { setActive } from "../state/slices/loginSlice";
 
 interface loginData {
   username: string;
@@ -9,6 +11,8 @@ interface loginData {
 }
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const [data, setData] = useState<loginData>({
     username: "",
     password: "",
@@ -45,7 +49,8 @@ const Login = () => {
 
       const res = await response.json();
       if (response.ok) {
-        console.log(res);
+        dispatch(setActive())
+        navigate('/');
       } else {
         setError(true);
         setErrorText(res.error);

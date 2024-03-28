@@ -5,7 +5,7 @@ import PostView from "../Components/PostView";
 const App = () => {
   return (
     <>
-      <NavBar logged_in={false} />
+      <NavBar />
       <PostView />
     </>
   );
