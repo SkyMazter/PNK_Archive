@@ -4,6 +4,7 @@ import { useState } from "react";
 import PopUp from "../Components/PopUp";
 import { useDispatch } from "react-redux";
 import { setActive } from "../state/slices/loginSlice";
+import { setUserID, setUsername } from "../state/slices/userSlice";
 
 interface loginData {
   username: string;
@@ -11,7 +12,7 @@ interface loginData {
 }
 
 const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState<loginData>({
     username: "",
@@ -22,7 +23,7 @@ const Login = () => {
 
   //click handler
   const handleLogin = () => {
-    setError(false)
+    setError(false);
     callLogin();
   };
 
@@ -48,9 +49,12 @@ const Login = () => {
       });
 
       const res = await response.json();
+
       if (response.ok) {
-        dispatch(setActive())
-        navigate('/');
+        dispatch(setActive());
+        dispatch(setUsername(res.username));
+        dispatch(setUserID(res.user_id));
+        navigate("/");
       } else {
         setError(true);
         setErrorText(res.error);
@@ -73,7 +77,10 @@ const Login = () => {
       <Row className="h-auto py-2 justify-content-around">
         <Col xs={10} lg={4}>
           <h1>Login</h1>
-          <PopUp isActive={error} text={errorText|| "Unknown issue, Please try again"}></PopUp>
+          <PopUp
+            isActive={error}
+            text={errorText || "Unknown issue, Please try again"}
+          ></PopUp>
           <Form>
             <InputGroup className="my-3">
               <InputGroup.Text id="basic-addon1">@</InputGroup.Text>

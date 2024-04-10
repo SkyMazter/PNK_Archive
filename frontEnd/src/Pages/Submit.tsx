@@ -1,7 +1,9 @@
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../hooks/hooks";
 
 const Submit = () => {
+  const currentUsrn: string = useAppSelector((state) => state.user.username);
   return (
     <Container className="min-vh-100 my-5" fluid="sm">
       <Row className="justify-content-center">
@@ -16,8 +18,10 @@ const Submit = () => {
             <InputGroup className="my-3">
               <InputGroup.Text>@</InputGroup.Text>
               <Form.Control
-                placeholder="Username"
+                placeholder={currentUsrn}
                 aria-describedby="basic-addon2"
+                disabled
+                readOnly
               ></Form.Control>
             </InputGroup>
 
